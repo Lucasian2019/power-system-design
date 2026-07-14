@@ -1,3 +1,9 @@
 directory
 
-C:\hardwareDesign\Inverter design
+CD C:\hardwareDesign\Inverter design
+
+git add .
+
+git commit -m "change description"
+
+git push -u origin main
