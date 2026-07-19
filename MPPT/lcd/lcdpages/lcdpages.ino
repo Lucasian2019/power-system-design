@@ -103,7 +103,7 @@ void setup()
 Serial.begin(115200);
 
 
- 
+lcd.begin(20, 4);
 lcd.display();
 
 
