@@ -30,6 +30,8 @@ void setup() {
 }
 
 void loop() {
+
+  lcd.noBacklight();
 //  // Example: Scrolling text on row 3
 //  lcd.setCursor(0, 3);
 //  lcd.print("                "); // Clear row 3
