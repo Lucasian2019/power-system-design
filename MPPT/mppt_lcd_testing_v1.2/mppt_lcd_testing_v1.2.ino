@@ -1,13 +1,7 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
-#ifndef PROTEUS_SIMULATION
-#define PROTEUS_SIMULATION 0
-#endif
-
-#if !PROTEUS_SIMULATION
 #include <Preferences.h>
 #include <esp_arduino_version.h>
-#endif
 
 const int rs = 3, en = 2, d4 = 4, d5 = 5, d6 = 6, d7 = 7;
 constexpr uint8_t BTN_OK = 9, BTN_BACK = 8, BTN_UP = 1, BTN_DOWN = 0;
@@ -93,13 +87,7 @@ struct Measurements {
 };
 
 Measurements measurements;
-#if !PROTEUS_SIMULATION
 Preferences preferences;
-#endif
-
-// Proteus has no sensor schematic yet, so it starts with generated readings.
-// Set this to false after connecting real sensor circuits.
-bool useDummySensors = PROTEUS_SIMULATION;
 
 enum ChargeStage { CHARGE_IDLE, CHARGE_BULK_MPPT, CHARGE_ABSORPTION, CHARGE_FLOAT, CHARGE_PSU, CHARGE_FAULT };
 enum FaultCode { FAULT_NONE, FAULT_PV_OVERVOLTAGE, FAULT_BATTERY_OVERVOLTAGE,
@@ -159,21 +147,6 @@ float readTemperatureC() { return readAdcVolts(PIN_TEMPERATURE) / config.tempera
 void updateMeasurements() {
   if (millis() - lastMeasurementMs < 100) return;
   lastMeasurementMs = millis();
-
-  if (useDummySensors) {
-    // Safe, believable values for testing the LCD, state machine, MPPT and
-    // CC/CV logic without analogue sensor circuits in Proteus.
-    const float ripple = static_cast<float>((millis() / 100) % 10) * 0.02F;
-    measurements.pvVoltage = 38.5F + ripple;
-    measurements.pvCurrent = 5.2F - ripple;
-    measurements.batteryVoltage = psuActive ? psuVoltage - 0.05F : 13.8F + ripple;
-    measurements.batteryCurrent = psuActive ? min(psuCurrentLimit, 5.0F) : 5.0F;
-    measurements.dcBusVoltage = measurements.batteryVoltage + 0.2F;
-    measurements.temperatureC = 28.0F;
-    measurements.pvPower = measurements.pvVoltage * measurements.pvCurrent;
-    return;
-  }
-
   measurements.pvVoltage = readPvVoltage();
   measurements.pvCurrent = max(0.0F, readPvCurrent());
   measurements.batteryVoltage = readBatteryVoltage();
@@ -188,16 +161,10 @@ void updateMeasurements() {
 // -----------------------------------------------------------------------------
 void setPwmDuty(float duty) {
   pwmDuty = constrain(duty, 0.0F, 0.95F);
-#if PROTEUS_SIMULATION
-  // Proteus ESP32 models commonly do not implement LEDC. This pin indicates
-  // that the converter is enabled; inspect pwmDuty in the debugger/LCD.
-  digitalWrite(PIN_PWM, pwmDuty > 0.001F ? HIGH : LOW);
-#else
 #if ESP_ARDUINO_VERSION_MAJOR >= 3
   ledcWrite(PIN_PWM, static_cast<uint32_t>(pwmDuty * PWM_MAX_COUNT));
 #else
   ledcWrite(PWM_CHANNEL, static_cast<uint32_t>(pwmDuty * PWM_MAX_COUNT));
-#endif
 #endif
 }
 
@@ -310,7 +277,6 @@ struct StoredSettings {
 };
 
 void saveSettings() {
-#if !PROTEUS_SIMULATION
   StoredSettings settings;
   settings.limits = config;
   for (int i = 0; i < 3; ++i) {
@@ -321,13 +287,9 @@ void saveSettings() {
   settings.savedPsuVoltage = psuVoltage;
   settings.savedPsuCurrent = psuCurrentLimit;
   preferences.putBytes("settings", &settings, sizeof(settings));
-#else
-  // Dummy Preferences: values already remain in RAM for the simulation run.
-#endif
 }
 
 void loadSettings() {
-#if !PROTEUS_SIMULATION
   StoredSettings settings;
   if (preferences.getBytesLength("settings") != sizeof(settings)) return;
   preferences.getBytes("settings", &settings, sizeof(settings));
@@ -339,9 +301,6 @@ void loadSettings() {
   }
   psuVoltage = settings.savedPsuVoltage;
   psuCurrentLimit = settings.savedPsuCurrent;
-#else
-  // Dummy Preferences deliberately load no NVS data in Proteus.
-#endif
 }
 
 const char *chargeStageText() {
@@ -519,10 +478,6 @@ void setup() {
   pinMode(BTN_OK, INPUT_PULLUP); pinMode(BTN_BACK, INPUT_PULLUP);
   pinMode(BTN_UP, INPUT_PULLUP); pinMode(BTN_DOWN, INPUT_PULLUP);
   analogReadResolution(12);
-#if PROTEUS_SIMULATION
-  pinMode(PIN_PWM, OUTPUT);
-  digitalWrite(PIN_PWM, LOW);
-#else
   preferences.begin("tivana-mppt", false);
   loadSettings();
 #if ESP_ARDUINO_VERSION_MAJOR >= 3
@@ -530,7 +485,6 @@ void setup() {
 #else
   ledcSetup(PWM_CHANNEL, PWM_FREQUENCY, PWM_RESOLUTION);
   ledcAttachPin(PIN_PWM, PWM_CHANNEL);
-#endif
 #endif
   disablePwm();
   lcd.clear(); lcd.setCursor(2, 0); lcd.print("TIVANA SOLAR MPPT");

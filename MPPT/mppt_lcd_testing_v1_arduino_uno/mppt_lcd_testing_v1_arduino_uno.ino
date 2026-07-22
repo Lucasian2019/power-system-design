@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 #ifndef PROTEUS_SIMULATION
-#define PROTEUS_SIMULATION 0
+#define PROTEUS_SIMULATION  1
 #endif
 
 #if !PROTEUS_SIMULATION
@@ -141,7 +141,7 @@ float calculateDutyCycle(float pvVoltage, bool floatStage) {
 float readAdcVolts(uint8_t pin) {
   const int samples = 16;
   uint32_t totalMilliVolts = 0;
-  for (int i = 0; i < samples; ++i) totalMilliVolts += analogReadMilliVolts(pin);
+ // for (int i = 0; i < samples; ++i) totalMilliVolts += analogReadMilliVolts(pin);
   return (totalMilliVolts / static_cast<float>(samples)) / 1000.0F;
 }
 
@@ -518,7 +518,7 @@ void setup() {
   lcd.begin(20, 4);
   pinMode(BTN_OK, INPUT_PULLUP); pinMode(BTN_BACK, INPUT_PULLUP);
   pinMode(BTN_UP, INPUT_PULLUP); pinMode(BTN_DOWN, INPUT_PULLUP);
-  analogReadResolution(12);
+//  analogReadResolution(12);
 #if PROTEUS_SIMULATION
   pinMode(PIN_PWM, OUTPUT);
   digitalWrite(PIN_PWM, LOW);
