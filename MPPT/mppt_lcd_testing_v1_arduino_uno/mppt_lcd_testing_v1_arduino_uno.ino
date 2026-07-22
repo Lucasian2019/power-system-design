@@ -106,6 +106,7 @@ enum FaultCode { FAULT_NONE, FAULT_PV_OVERVOLTAGE, FAULT_BATTERY_OVERVOLTAGE,
                  FAULT_OVERCURRENT, FAULT_OVERTEMPERATURE, FAULT_NO_BATTERY };
 
 ChargeStage chargeStage = CHARGE_IDLE;
+ChargeStage previousChargeStage = CHARGE_IDLE;
 FaultCode faultCode = FAULT_NONE;
 float pwmDuty = 0.0F;
 float mpptDuty = 0.0F;
@@ -606,7 +607,7 @@ void loop() {
     } else if (screenState == SCREEN_POWER_SUPPLY) {
       if (subMenuIndex == 0) { returnToPsuActive = false; screenState = SCREEN_EDIT_VOLTAGE; showValueEditor(true); }
       else if (subMenuIndex == 1) { returnToPsuActive = false; screenState = SCREEN_EDIT_CURRENT; showValueEditor(false); }
-      else { psuActive = true; subMenuIndex = 0; screenState = SCREEN_PSU_ACTIVE; showPsuActive(); }
+      else {  previousChargeStage = chargeStage; psuActive = true;   subMenuIndex = 0;   screenState = SCREEN_PSU_ACTIVE;   showPsuActive();}
     } else if (screenState == SCREEN_PSU_ACTIVE) {
       returnToPsuActive = true;
       screenState = subMenuIndex == 0 ? SCREEN_EDIT_VOLTAGE : SCREEN_EDIT_CURRENT;
@@ -637,7 +638,24 @@ void loop() {
     }
     else if (screenState == SCREEN_EDIT_LIMIT) { screenState = SCREEN_LIMITS; showLimits(); }
     else if (screenState == SCREEN_PSU_ACTIVE) {
-      psuActive = false; returnToPsuActive = false; screenState = SCREEN_HOME; showHome();
+      psuActive = false;
+
+   if(previousChargeStage == CHARGE_BULK_MPPT ||
+   previousChargeStage == CHARGE_ABSORPTION ||
+   previousChargeStage == CHARGE_FLOAT)
+{
+    chargeStage = previousChargeStage;
+}
+else
+{
+    chargeStage = CHARGE_IDLE;
+}
+
+    returnToPsuActive = false;
+
+    screenState = SCREEN_HOME;
+
+    showHome();
     }
     else { screenState = SCREEN_MENU; drawMenu(); }
   }
