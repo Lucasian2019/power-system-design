@@ -48,7 +48,13 @@ bool lastUp = HIGH, lastDown = HIGH, lastOK = HIGH, lastBack = HIGH;
 // PWM remains OFF at boot and whenever a fault is present.
 // -----------------------------------------------------------------------------
 constexpr uint8_t PIN_PWM = 10;
- 
+constexpr float PWM_RAMP_STEP = 0.005F;
+constexpr float SWITCHING_FREQUENCY_HZ = 100000.0F;
+constexpr float VOLTAGE_LOOP_HZ = 100.0F;
+constexpr float CURRENT_LOOP_HZ = 10000.0F;
+constexpr float MAX_INDUCTOR_CURRENT = 35.0F;
+constexpr float MIN_DUTY = 0.02F;
+constexpr float MAX_DUTY = 0.99F;
 
 constexpr uint8_t PIN_PV_VOLTAGE = A0;
 constexpr uint8_t PIN_PV_CURRENT = A1;
@@ -68,9 +74,15 @@ struct SystemConfig {
   float pvVoltageDividerRatio = 21.0F;
   float batteryVoltageDividerRatio = 21.0F;
   float dcBusVoltageDividerRatio = 21.0F;
-  // ACS758-050B is typically 40 mV/A. Use 0.020 for ACS758-100B.
-  float currentSensorSensitivity = 0.040F;
-  float currentSensorZeroVoltage = 2.50F;
+  // For a differential amplifier with gain Rf/Rg = 100k/1k = 100,
+  // current is calculated as I = Vout / (gain * Rshunt).
+  float currentSensorGain = 100.0F;
+  float currentSensorShuntResistance = 0.001F;
+  // Override the derived sensitivity if you have already calibrated the sensor.
+  float currentSensorSensitivity = 0.0F;
+  // Set this to the ADC voltage at zero current for your op-amp stage.
+  // For a simple 0 V to 3.3 V single-supply current sense, this is often 0.0 V.
+  float currentSensorZeroVoltage = 0.0F;
   // Set to 1.0 when the sensor output is already limited to 3.3 V.
   float currentSensorInputDividerRatio = 1.0F;
   // LM35 default: 10 mV/degC, 0 V at 0 degC.
@@ -107,6 +119,11 @@ float pwmDuty = 0.0F;
 float mpptDuty = 0.0F;
 int mpptDirection = 1;
 float previousPvPower = 0.0F;
+bool startupRampActive = true;
+float currentLoopReference = 0.0F;
+float voltageLoopReference = 0.0F;
+float lastBatteryVoltage = 0.0F;
+uint32_t startupRampStartedMs = 0;
 uint32_t lastMeasurementMs = 0;
 uint32_t lastControlMs = 0;
 uint32_t lastMpptMs = 0;
@@ -154,7 +171,10 @@ float readBatteryVoltage() { return readAdcVolts(PIN_BATTERY_VOLTAGE) * config.b
 float readDcBusVoltage() { return readAdcVolts(PIN_DC_BUS_VOLTAGE) * config.dcBusVoltageDividerRatio; }
 float readCurrent(uint8_t pin) {
   const float sensorVoltage = readAdcVolts(pin) * config.currentSensorInputDividerRatio;
-  return (sensorVoltage - config.currentSensorZeroVoltage) / config.currentSensorSensitivity;
+  const float sensitivity = config.currentSensorSensitivity > 0.0F
+      ? config.currentSensorSensitivity
+      : (config.currentSensorGain * config.currentSensorShuntResistance);
+  return (sensorVoltage - config.currentSensorZeroVoltage) / sensitivity;
 }
 float readPvCurrent() { return readCurrent(PIN_PV_CURRENT); }
 float readBatteryCurrent() { return readCurrent(PIN_BATTERY_CURRENT); }
@@ -179,9 +199,9 @@ void updateMeasurements() {
   }
 
   measurements.pvVoltage = readPvVoltage();
-  measurements.pvCurrent = max(0.0F, readPvCurrent());
+  measurements.pvCurrent = readPvCurrent();
   measurements.batteryVoltage = readBatteryVoltage();
-  measurements.batteryCurrent = max(0.0F, readBatteryCurrent());
+  measurements.batteryCurrent = readBatteryCurrent();
   measurements.dcBusVoltage = readDcBusVoltage();
   measurements.temperatureC = readTemperatureC();
   measurements.pvPower = measurements.pvVoltage * measurements.pvCurrent;
@@ -190,28 +210,33 @@ void updateMeasurements() {
 // -----------------------------------------------------------------------------
 // PWM and protection. This is the only function that writes to the gate driver.
 // -----------------------------------------------------------------------------
-void setPwmDuty(float duty)
+void setPwmDuty(float duty, bool immediate = false)
 {
-    pwmDuty = constrain(duty, 0.0F, 0.95F);
- analogWrite(
-        PIN_PWM,
-        (uint8_t)(pwmDuty * 255.0f)
-    );
-#if PROTEUS_SIMULATION
+    const float targetDuty = constrain(duty, 0.0F, 0.95F);
 
-    //digitalWrite(PIN_PWM, pwmDuty > 0.001F ? HIGH : LOW);
-
-#else
-
+    if (immediate) {
+        pwmDuty = targetDuty;
+    } else if (startupRampActive) {
+        if (pwmDuty < targetDuty) {
+            pwmDuty = min(pwmDuty + PWM_RAMP_STEP, targetDuty);
+        } else {
+            pwmDuty = targetDuty;
+        }
+    } else {
+        if (targetDuty > pwmDuty) {
+            pwmDuty = min(pwmDuty + PWM_RAMP_STEP, targetDuty);
+        } else {
+            pwmDuty = max(pwmDuty - PWM_RAMP_STEP, targetDuty);
+        }
+    }
+//analogWrite(PIN_PWM, 255 - pwmDuty * 255);
     analogWrite(
         PIN_PWM,
-        (uint8_t)(pwmDuty * 255.0f)
+        (uint8_t)(255 - pwmDuty * 255.0f)
     );
-
-#endif
 }
 
-void disablePwm() { setPwmDuty(0.0F); }
+void disablePwm() { setPwmDuty(0.0F, true); }
 
 const char *faultText() {
   switch (faultCode) {
@@ -224,16 +249,34 @@ const char *faultText() {
   }
 }
 
-void updateSafety() {
-  if (measurements.pvVoltage > config.pvMaximumVoltage) faultCode = FAULT_PV_OVERVOLTAGE;
-  else if (measurements.batteryVoltage > config.batteryMaximumVoltage) faultCode = FAULT_BATTERY_OVERVOLTAGE;
-  else if (measurements.batteryCurrent > config.maximumChargeCurrent) faultCode = FAULT_OVERCURRENT;
-  else if (measurements.temperatureC > config.maximumTemperature) faultCode = FAULT_OVERTEMPERATURE;
-  else if (measurements.batteryVoltage < 1.0F && measurements.pvVoltage > 5.0F) faultCode = FAULT_NONE;
+float getModeVoltageLimit() {
+  const float stageTarget = getChargeVoltageTarget(chargeStage == CHARGE_FLOAT);
+  return max(config.batteryMaximumVoltage, stageTarget + 0.80F);
+}
 
-  if (faultCode != FAULT_NONE) {
+bool isBatteryVoltagePlausible(float batteryVoltage) {
+  return batteryVoltage >= 0.0F && batteryVoltage <= 20.0F;
+}
+
+void updateSafety() {
+  const float modeVoltageLimit = getModeVoltageLimit();
+  FaultCode newFault = FAULT_NONE;
+
+  if (measurements.pvVoltage > config.pvMaximumVoltage) {
+    newFault = FAULT_PV_OVERVOLTAGE;
+  } else if (!isBatteryVoltagePlausible(measurements.batteryVoltage)) {
+    newFault = FAULT_BATTERY_OVERVOLTAGE;
+  } else if (measurements.batteryVoltage > modeVoltageLimit) {
+    newFault = FAULT_BATTERY_OVERVOLTAGE;
+  } else if (measurements.batteryCurrent > config.maximumChargeCurrent + 0.25F) {
+    newFault = FAULT_OVERCURRENT;
+  } else if (measurements.temperatureC > config.maximumTemperature) {
+    newFault = FAULT_OVERTEMPERATURE;
+  }
+
+  if (newFault != FAULT_NONE) {
+    faultCode = newFault;
     chargeStage = CHARGE_FAULT;
-    disablePwm();
   }
 }
 
@@ -241,7 +284,7 @@ void updateSafety() {
 void clearFault() {
   faultCode = FAULT_NONE;
   chargeStage = CHARGE_IDLE;
-  disablePwm();
+ // disablePwm();
 }
 
 // -----------------------------------------------------------------------------
@@ -256,13 +299,33 @@ void runMpptAlgorithm() {
 }
 
 void runConstantVoltageCurrent(float targetVoltage, float targetCurrent, float baseDuty) {
-  float duty = baseDuty;
-  // Current limiting has priority over voltage regulation.
-  if (measurements.batteryCurrent > targetCurrent) duty -= 0.015F;
-  else if (measurements.batteryVoltage > targetVoltage) duty -= 0.010F;
-  else if (measurements.batteryVoltage < targetVoltage - 0.05F &&
-           measurements.batteryCurrent < targetCurrent - 0.10F) duty += 0.005F;
-  setPwmDuty(duty);
+  (void)baseDuty;
+
+  if (startupRampActive) {
+    if (millis() - startupRampStartedMs > 2000) {
+      startupRampActive = false;
+    }
+  }
+
+  float duty = pwmDuty;
+  const float voltageError = targetVoltage - measurements.batteryVoltage;
+  const float currentError = targetCurrent - measurements.batteryCurrent;
+
+  if (measurements.batteryCurrent > targetCurrent + 0.20F) {
+    duty -= 0.05F;
+  } else if (measurements.batteryVoltage > targetVoltage + 0.20F) {
+    duty -= 0.02F;
+  } else if (measurements.batteryVoltage < targetVoltage - 0.20F) {
+    duty += 0.02F + 0.05F * max(0.0F, voltageError / 2.0F);
+  } else if (currentError > 0.10F) {
+    duty += 0.01F;
+  }
+
+  if (measurements.pvVoltage < measurements.batteryVoltage + 1.0F) {
+    duty = MIN_DUTY;
+  }
+
+  setPwmDuty(constrain(duty, MIN_DUTY, MAX_DUTY));
 }
 
 void runPsuMode() {
@@ -281,6 +344,9 @@ void runChargingStateMachine() {
   if (chargeStage == CHARGE_IDLE) {
     chargeStage = CHARGE_BULK_MPPT;
     mpptDuty = calculateDutyCycle(measurements.pvVoltage, false);
+    setPwmDuty(0.0F, true);
+    startupRampActive = true;
+    startupRampStartedMs = millis();
   }
 
   if (chargeStage == CHARGE_BULK_MPPT) {

@@ -1,0 +1,250 @@
+MPPT design
+
+Requirements:
+Inputs: PV - 20 - 100V DC, I - 30A Max
+Output: Battery - 12/24V DC, I - 30A.
+Max Power: 3KW
+
+Vin max = 100 V
+Vout max = 29.2 V
+Iout max = 30 A
+Pout ≈ 900 W
+
+
+FLOW
+PV (20–100V)
+      │
+Input TVS
+      │
+EMI Filter
+      │
+Synchronous Buck
+      │
+Current Sensor
+      │
+Battery
+
+
+
+Use:
+150 V MOSFETs
+Synchronous buck
+100 kHz switching frequency
+
+These can perform:
+MPPT
+CC charging
+CV charging
+Temperature compensation
+Battery protection
+
+Vds = 150 V
+Id ≥ 80 A
+Rds(on) < 10 mΩ
+
+
+Mosfet:
+IPT015N15N5
+IPT007N15N5
+BSC020N10NS5
+Use one high-side and one low-side MOSFET.
+
+Inductor design:
+Inductor:
+Worst case:
+
+Vin = 100 V
+Vout = 24 V
+Iout = 30 A
+fs = 100 kHz
+
+Allow 20% ripple:
+ΔI = 6 A
+
+L = ((Vin-Vout) x D)/Delta I x frequency
+Result:
+L ≈ 30–40 µH
+
+Recommended:
+33 µH
+40 A saturation minimum
+Ferrite or powdered iron core.
+
+
+Input capacitor bank:
+PV side: Need high ripple handling.
+2 × 470µF 160V electrolytic + 4.7µF film + 1µF ceramic
+
+Output Capacitors:
+4 × 470 µF low ESR polymer 
+plus
+10 × 1 µF ceramic 35 V
+near MOSFETs and inductor.
+Ripple current rating: >10A RM
+
+
+Battery Current Sense:
+shunt: 2mΩ
+Power: I squared x R = 30 squared x 0.002 = 1.8W
+use 2mohms 5W kelvin shunt
+Battery Current Sense
+Shunt:
+0.5 mΩ, 5 W
+At 30 A: V = 15 m
+
+Amplify with:
+INA240
+INA181
+or use Hall-effect sensing.
+
+PV current sensing: For MPPT you need PV power.
+Use: 1mΩ shunt, At 30A: V=30mV, Gain: 100, 3V at 30A
+
+
+MPPT Algorithm
+For solar:
+Use Perturb & Observe.
+
+Measure:
+PV Voltage
+PV Current
+Battery Voltage
+Battery Current
+Update every:
+50–100 ms
+
+
+Protection
+
+Mandatory:
+Input Overvoltage
+PV > 105 V
+disconnect.
+
+Reverse Battery
+Use:
+
+Ideal diode MOSFET
+instead of a series diode.
+Overcurrent
+35 A shutdown
+Overtemperature
+85°C heatsink
+derate.
+
+Expected Performance
+With a synchronous buck:
+Efficiency = 96–98%
+
+At 24 V / 30 A:
+Output ≈ 720 W
+Losses ≈ 15–30 W
+
+
+1. PV input voltage divider
+
+Maximum PV voltage: VPV(max)​=100V 
+Do not run ADC at the limit. Use about: VADC(max)​=3.0V
+Divider ratio: R2/(R1 + R2) ​= 3/100 = 0.03V
+ 
+Choose:
+R1 (top resistor): R1 = 330kΩ, R2 = 10kΩ. ADC​=2.94V
+Add capacitor: 100nF across the 10k resistor for filtering.
+
+Battery output voltage divider
+R1 = 100kΩ, R2 = 12kΩ = 3.13 V
+
+Current sensing:
+Rshunt = 2mΩ, V=IR, V=30A×0.002
+Amplify to ADC range: 0-3V
+op-amp differential amplifier: Gain = 1 + Rf/Rg
+Rf = 100kΩ, Rg = 2kΩ gain = 51
+
+Current limit setting
+ADC scaling: 30A = 3V
+10A = 1V
+20A = 2V
+30A = 3V
+
+Protection divider values:
+For a 100 V PV input I would actually use two series resistors instead of one:
+R1 = (150k + 180k), R2 = 10k because each resistor sees less voltage stress
+
+
+
+Switching frequency: 100khz
+
+switching frequency is choosen, then used to calculate the rest.
+
+Loop measurement frequency for current = f(current) = f(switching)/(5 to 10) because current through inductor rises faster, so for safety need to monitor it quickly.
+
+During MOSFET ON:VL=100−24=76V
+Current rise:di/dt = 76/33uh = 2.3A/us
+	​
+
+  
+
+
+PWM frequency: 100 kHz   |---10us---|---10us---|---10us---|
+
+Loop measurement frequency for voltage = f(current) = f(switching)/(50 to 100)
+eg. 10kHz/100=100Hz
+Voltage loop: 10ms  10ms X-----------------X 10ms
+
+100 Hz
+
+T = 1/f, 1/100000 = 10us = period
+Duty = Vout/ Vin = 24/100
+
+Every 10 ms:
+
+Measure:
+- Battery voltage
+- Temperature
+- MPPT values
+
+Update:
+- Voltage loop
+- MPPT algorithm
+
+
+Temperature
+
+NTC:
+
+10k NTC
+
+Shutdown:
+
+90°C
+
+
+MPPT + charging firmware
+
+Control loop:
+
+Fast loop (10–20 kHz)
+
+Controls:
+
+Inductor current
+Peak current limit
+Slow loop (100 Hz)
+
+Controls:
+
+Battery voltage
+MPPT tracking
+
+
+Final component summary
+Part	Value
+Q1/Q2	150V MOSFET 80A
+Driver	UCC27211
+L1	33µH 45A
+Input caps	2×470µF 160V
+Output caps	4×470µF 50V
+Battery shunt	2mΩ 5W
+PV shunt	1mΩ
+Switching	100kHz
+MCU	STM32G4
