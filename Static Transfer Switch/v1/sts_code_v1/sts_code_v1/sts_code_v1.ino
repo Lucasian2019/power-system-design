@@ -207,47 +207,41 @@ float calculateRMS()
 // ZERO CROSS INTERRUPT
 // =================================================
 
-void zeroCrossISR()
+ void zeroCrossISR()
 {
+  unsigned long now = micros();
 
-  unsigned long now =
-      micros();
-
-  if(lastZeroMicros > 0)
+  if(lastZeroMicros != 0)
   {
 
-    unsigned long halfCycle =
-        now -
-        lastZeroMicros;
+    unsigned long period =
+        now - lastZeroMicros;
 
 
-    if(halfCycle > 5000 &&
-       halfCycle < 15000)
+    // one rising edge every half cycle
+    if(period > 7000 && period < 20000)
     {
 
-      measuredHalfCycle =
-           halfCycle;
-
-
       frequencyHz =
-           calculateFrequency(
-             halfCycle);
+        1000000.0 /
+        (period * 2.0);
+
+
+      measuredHalfCycle = period;
 
     }
 
   }
 
+
   lastZeroMicros = now;
 
-  zeroCross = true;
 
+  zeroCross = true;
   counter = 0;
 
 
-  digitalWrite(
-      TRIAC_PIN,
-      LOW);
-
+  digitalWrite(TRIAC_PIN, LOW);
 }
 
 // =================================================
