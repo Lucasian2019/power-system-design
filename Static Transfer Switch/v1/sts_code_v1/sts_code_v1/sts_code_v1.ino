@@ -389,7 +389,7 @@ void setup()
     TRIAC_PIN,
     LOW);
 
-  lcd.begin(16,4);
+  lcd.begin(20,4);
 
   lcd.clear();
 
