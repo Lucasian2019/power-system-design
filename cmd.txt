@@ -4,6 +4,6 @@ CD C:\hardwareDesign\Inverter design
 
 git add .
 
-git commit -m "change description"
+git commit -m "Added Static Transfer Switch v3"
 
-git push -u origin main
+git push -u 
