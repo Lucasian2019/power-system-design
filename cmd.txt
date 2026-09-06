@@ -4,6 +4,16 @@ CD C:\hardwareDesign\Inverter design
 
 git add .
 
-git commit -m "Added Static Transfer Switch v3"
+git commit -m "v out adjust work"
+
+git push -u 
+
+
+
+CD C:\hardwareDesign\TSC BW 16 V3
+
+git add .
+
+git commit -m "TSC V3 added w5500 v3 rework"
 
 git push -u 
