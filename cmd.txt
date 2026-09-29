@@ -4,7 +4,7 @@ CD C:\hardwareDesign\Inverter design
 
 git add .
 
-git commit -m "v out adjust work"
+git commit -m "solar inverter working model v2"
 
 git push -u 
 
@@ -14,6 +14,6 @@ CD C:\hardwareDesign\TSC BW 16 V3
 
 git add .
 
-git commit -m "TSC V3 added w5500 v3 rework"
+git commit -m "WORKING ON POC - Proof of concept"
 
 git push -u 
