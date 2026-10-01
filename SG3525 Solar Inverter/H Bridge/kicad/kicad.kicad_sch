@@ -13755,7 +13755,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "af4877f9-81e8-417a-9574-eaf910c023f5")
 		(property "Reference" "R14"
 			(at 218.44 139.6999 0)
@@ -13769,7 +13768,7 @@
 			)
 		)
 		(property "Value" "33k"
-			(at 218.44 142.2399 0)
+			(at 215.9 143.002 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15128,7 +15127,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "de3909bb-9168-4fc1-93f9-2250e11caf7c")
 		(property "Reference" "R15"
 			(at 218.44 153.6699 0)
@@ -15142,7 +15140,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 218.44 156.2099 0)
+			(at 215.9 156.972 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
