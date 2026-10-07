@@ -5,7 +5,7 @@
 	(uuid "40e0f264-5d7d-4080-96f9-03b6d8dad596")
 	(paper "A4")
 	(title_block
-		(title "SG3525 H Bridge")
+		(title "SG3525 Full Bridge Inverter")
 		(date "2026-09-27")
 		(rev "0")
 		(company "Tivana")
@@ -10931,7 +10931,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "47R"
 			(at 257.81 65.024 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10941,7 +10941,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L25.0mm_W6.4mm_P30.48mm"
 			(at 259.588 64.77 90)
 			(hide yes)
 			(show_name no)
