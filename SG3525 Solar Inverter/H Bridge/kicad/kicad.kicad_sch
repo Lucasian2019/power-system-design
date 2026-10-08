@@ -283,6 +283,189 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:Screw_Terminal_01x01"
 			(pin_names
 				(offset 1.016)
@@ -4257,12 +4440,6 @@
 		(uuid "c2afbe00-fc2a-41f6-999b-dbfcb370d2af")
 	)
 	(junction
-		(at 234.95 147.32)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "001af2c5-af9f-421e-b6c4-95c92354b755")
-	)
-	(junction
 		(at 208.28 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4279,6 +4456,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1ff0f94b-68c1-44c6-a431-3e1f87e9542f")
+	)
+	(junction
+		(at 248.92 149.86)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "27f34adb-f747-43c9-9369-8b5225e483f8")
+	)
+	(junction
+		(at 234.95 147.32)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2a713017-6a83-4e0a-8c8d-57f9dbc66b2d")
 	)
 	(junction
 		(at 69.85 130.81)
@@ -4381,12 +4570,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "98fd7350-ff65-4ff0-a763-66679e43fdbf")
-	)
-	(junction
-		(at 248.92 149.86)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9c470964-caf0-43fe-bbbc-111109b08f71")
 	)
 	(junction
 		(at 172.72 162.56)
@@ -5790,7 +5973,7 @@
 	)
 	(wire
 		(pts
-			(xy 234.95 147.32) (xy 265.43 147.32)
+			(xy 234.95 147.32) (xy 259.08 147.32)
 		)
 		(stroke
 			(width 0)
@@ -6330,7 +6513,7 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 149.86) (xy 265.43 149.86)
+			(xy 248.92 149.86) (xy 259.08 149.86)
 		)
 		(stroke
 			(width 0)
@@ -7048,8 +7231,8 @@
 		)
 		(uuid "311dfe68-333c-4aca-a688-26b6be8a7ca4")
 	)
-	(label "Live"
-		(at 257.81 147.32 0)
+	(label "L_VFB"
+		(at 251.46 147.32 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7158,8 +7341,8 @@
 		)
 		(uuid "6e4604e6-4fcb-40c3-8335-cdfd1d24b886")
 	)
-	(label "Neutral"
-		(at 257.81 149.86 0)
+	(label "N_VFB"
+		(at 250.19 149.86 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8230,7 +8413,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MiniMELF"
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
 			(at 29.845 179.07 0)
 			(hide yes)
 			(show_name no)
@@ -8525,6 +8708,83 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 43.18 104.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1a70417d-64a3-4f9d-b2cd-ec1abfa527b4")
+		(property "Reference" "H4"
+			(at 45.72 104.1399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 45.72 105.4099 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
+			(at 43.18 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.18 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 43.18 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "kicad"
+				(path "/40e0f264-5d7d-4080-96f9-03b6d8dad596"
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 63.5 58.42 90)
 		(unit 1)
@@ -8637,7 +8897,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MiniMELF"
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
 			(at 65.405 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -12638,7 +12898,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MiniMELF"
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
 			(at 65.405 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -16368,7 +16628,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MiniMELF"
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
 			(at 203.835 154.94 0)
 			(hide yes)
 			(show_name no)
@@ -16685,7 +16945,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Radial_D10.0mm_H12.5mm_P5.00mm"
+		(property "Footprint" "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"
 			(at 227.33 148.59 0)
 			(hide yes)
 			(show_name no)
@@ -17159,6 +17419,88 @@
 			(project "kicad"
 				(path "/40e0f264-5d7d-4080-96f9-03b6d8dad596"
 					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 264.16 147.32 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d0a57e3d-f948-4387-a40b-18b5d0d724f5")
+		(property "Reference" "J6"
+			(at 265.43 147.3199 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x02_Socket"
+			(at 258.064 153.162 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 264.16 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 264.16 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d058151b-9480-45cd-91e0-545a98b92d80")
+		)
+		(pin "2"
+			(uuid "529352ab-0da0-4db4-8273-cd4735cc5db2")
+		)
+		(instances
+			(project "kicad"
+				(path "/40e0f264-5d7d-4080-96f9-03b6d8dad596"
+					(reference "J6")
 					(unit 1)
 				)
 			)
