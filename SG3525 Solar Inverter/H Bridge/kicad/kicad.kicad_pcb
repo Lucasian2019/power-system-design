@@ -12224,7 +12224,7 @@
 		(descr "Soldered wire connection, for a single 0.127 mm² wire, basic insulation, conductor diameter 0.48mm, outer diameter 1mm, size source Multi-Contact FLEXI-E/HK 0.127 (https://www.staubli.com/content/dam/ecs/catalogs-brochures/TM/CAB-Main-11014119-en.pdf#page=9), bend radius 3 times outer diameter")
 		(tags "connector wire 0.127sqmm")
 		(property "Reference" "J5"
-			(at 0.01 -2.22 0)
+			(at 2.61 0.23 0)
 			(layer "F.SilkS")
 			(uuid "529c1ee7-0f62-4d5a-bfba-b072c941d456")
 			(effects
@@ -19256,7 +19256,7 @@
 		(descr "Soldered wire connection, for a single 0.127 mm² wire, basic insulation, conductor diameter 0.48mm, outer diameter 1mm, size source Multi-Contact FLEXI-E/HK 0.127 (https://www.staubli.com/content/dam/ecs/catalogs-brochures/TM/CAB-Main-11014119-en.pdf#page=9), bend radius 3 times outer diameter")
 		(tags "connector wire 0.127sqmm")
 		(property "Reference" "J1"
-			(at 0 -2.05 0)
+			(at -2.46 0 0)
 			(layer "F.SilkS")
 			(uuid "a19ddd1f-8b2b-4523-96ff-cfa0fbee425e")
 			(effects
@@ -20888,6 +20888,30 @@
 		(at 93.29 76.4 0)
 		(layer "F.SilkS")
 		(uuid "9f54a1ce-6bae-4d00-a7b8-7b3db460981b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "L"
+		(at 138.22 77.01 180)
+		(layer "F.SilkS")
+		(uuid "a254ffe8-5ca6-489e-a20e-a87c907ef268")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "N"
+		(at 153.79 76.92 180)
+		(layer "F.SilkS")
+		(uuid "ef3986d6-d1f1-4a05-b6c1-11d276d51d4b")
 		(effects
 			(font
 				(size 1 1)
