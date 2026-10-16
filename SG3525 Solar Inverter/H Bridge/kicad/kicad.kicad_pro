@@ -759,6 +759,18 @@
     [
       "40e0f264-5d7d-4080-96f9-03b6d8dad596",
       "Root"
+    ],
+    [
+      "ac80bf55-4f42-4bdf-90c2-c9c33972a25f",
+      "protection circuit"
+    ],
+    [
+      "b03d3af5-0481-4cb7-81df-0e167b7e7b45",
+      "non isolated feedback"
+    ],
+    [
+      "4756e164-17bf-48a3-8421-fd4758a9d481",
+      "isolated feedback"
     ]
   ],
   "text_variables": {},
