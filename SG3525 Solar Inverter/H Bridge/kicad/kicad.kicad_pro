@@ -752,7 +752,7 @@
         "uuid": "40e0f264-5d7d-4080-96f9-03b6d8dad596"
       }
     ],
-    "used_designators": "R1-47,J1-14,#PWR1-63,D1-17,U1-7,C1-18,RV1-8,Q1-7,H1-4,HS1",
+    "used_designators": "R1-48,J1-14,#PWR1-64,D1-17,U1-7,C1-20,RV1-9,Q1-7,H1-4,HS1",
     "variants": []
   },
   "sheets": [
@@ -783,6 +783,10 @@
     [
       "bca35039-ced8-4cb5-af63-12befec669f7",
       "TL494 PMW"
+    ],
+    [
+      "67b29fc8-a751-4564-982e-9613f3976859",
+      "DC DC Boost"
     ]
   ],
   "text_variables": {},

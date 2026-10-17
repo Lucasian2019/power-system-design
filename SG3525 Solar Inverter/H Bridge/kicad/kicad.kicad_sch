@@ -3,7 +3,7 @@
 	(generator "eeschema")
 	(generator_version "10.0")
 	(uuid "40e0f264-5d7d-4080-96f9-03b6d8dad596")
-	(paper "A3")
+	(paper "A4")
 	(title_block
 		(title "SG3525 Full Bridge Inverter")
 		(date "2026-09-27")
@@ -113,7 +113,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 199.39 73.66 0)
+		(at 190.5 116.84 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -124,7 +124,7 @@
 		(fields_autoplaced yes)
 		(uuid "1a70417d-64a3-4f9d-b2cd-ec1abfa527b4")
 		(property "Reference" "H4"
-			(at 201.93 73.6599 0)
+			(at 193.04 116.8399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -135,7 +135,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 201.93 74.9299 0)
+			(at 193.04 118.1099 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -147,7 +147,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
-			(at 199.39 73.66 0)
+			(at 190.5 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -158,7 +158,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 73.66 0)
+			(at 190.5 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -169,7 +169,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 199.39 73.66 0)
+			(at 190.5 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -190,7 +190,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 199.39 68.58 0)
+		(at 190.5 111.76 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -201,7 +201,7 @@
 		(fields_autoplaced yes)
 		(uuid "30aefed8-5bc4-430f-8363-19052909d3f3")
 		(property "Reference" "H3"
-			(at 201.93 68.5799 0)
+			(at 193.04 111.7599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -212,7 +212,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 201.93 69.8499 0)
+			(at 193.04 113.0299 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -224,7 +224,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
-			(at 199.39 68.58 0)
+			(at 190.5 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -235,7 +235,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 68.58 0)
+			(at 190.5 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -246,7 +246,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 199.39 68.58 0)
+			(at 190.5 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -267,7 +267,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 199.39 58.42 0)
+		(at 190.5 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -278,7 +278,7 @@
 		(fields_autoplaced yes)
 		(uuid "40277e52-85ba-4f4e-8052-dd2f1842c799")
 		(property "Reference" "H1"
-			(at 201.93 58.4199 0)
+			(at 193.04 101.5999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -289,7 +289,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 201.93 59.6899 0)
+			(at 193.04 102.8699 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -301,7 +301,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
-			(at 199.39 58.42 0)
+			(at 190.5 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -312,7 +312,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 58.42 0)
+			(at 190.5 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -323,7 +323,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 199.39 58.42 0)
+			(at 190.5 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -344,7 +344,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 199.39 63.5 0)
+		(at 190.5 106.68 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -355,7 +355,7 @@
 		(fields_autoplaced yes)
 		(uuid "bdc7e7a6-927b-44f4-b8b4-293dcb044ab0")
 		(property "Reference" "H2"
-			(at 201.93 63.4999 0)
+			(at 193.04 106.6799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -366,7 +366,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 201.93 64.7699 0)
+			(at 193.04 107.9499 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -378,7 +378,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
-			(at 199.39 63.5 0)
+			(at 190.5 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -389,7 +389,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 63.5 0)
+			(at 190.5 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -400,7 +400,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 199.39 63.5 0)
+			(at 190.5 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -420,7 +420,7 @@
 		)
 	)
 	(sheet
-		(at 67.31 254)
+		(at 114.3 132.08)
 		(size 36.83 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -436,7 +436,7 @@
 		)
 		(uuid "4756e164-17bf-48a3-8421-fd4758a9d481")
 		(property "Sheetname" "isolated feedback"
-			(at 67.31 253.2884 0)
+			(at 114.3 131.3684 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -447,7 +447,7 @@
 			)
 		)
 		(property "Sheetfile" "isolated feedback.kicad_sch"
-			(at 67.31 269.8246 0)
+			(at 114.3 147.9046 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -466,8 +466,54 @@
 		)
 	)
 	(sheet
-		(at 20.32 255.27)
-		(size 39.37 13.97)
+		(at 67.31 163.83)
+		(size 35.56 19.05)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "67b29fc8-a751-4564-982e-9613f3976859")
+		(property "Sheetname" "DC DC Boost"
+			(at 67.31 163.1184 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "dc dc boost.kicad_sch"
+			(at 67.31 183.4646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "kicad"
+				(path "/40e0f264-5d7d-4080-96f9-03b6d8dad596"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 67.31 133.35)
+		(size 35.56 13.97)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -482,7 +528,7 @@
 		)
 		(uuid "ac80bf55-4f42-4bdf-90c2-c9c33972a25f")
 		(property "Sheetname" "protection circuit"
-			(at 20.32 254.5584 0)
+			(at 67.31 132.6384 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -493,7 +539,7 @@
 			)
 		)
 		(property "Sheetfile" "protection circuit.kicad_sch"
-			(at 20.32 269.8246 0)
+			(at 67.31 147.9046 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -512,7 +558,7 @@
 		)
 	)
 	(sheet
-		(at 67.31 231.14)
+		(at 114.3 109.22)
 		(size 36.83 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -528,7 +574,7 @@
 		)
 		(uuid "b03d3af5-0481-4cb7-81df-0e167b7e7b45")
 		(property "Sheetname" "non isolated feedback"
-			(at 67.31 230.4284 0)
+			(at 114.3 108.5084 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -539,7 +585,7 @@
 			)
 		)
 		(property "Sheetfile" "non isolated feedback.kicad_sch"
-			(at 67.31 246.9646 0)
+			(at 114.3 125.0446 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -558,8 +604,8 @@
 		)
 	)
 	(sheet
-		(at 19.05 199.39)
-		(size 39.37 17.78)
+		(at 66.04 77.47)
+		(size 36.83 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -574,7 +620,7 @@
 		)
 		(uuid "b508f4f1-0e9f-4e2a-9203-9b97e2436cd2")
 		(property "Sheetname" "Full Bridge Bootstrap"
-			(at 19.05 198.6784 0)
+			(at 66.04 76.7584 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -585,7 +631,7 @@
 			)
 		)
 		(property "Sheetfile" "Full Bridge Bootstrap.kicad_sch"
-			(at 19.05 217.7546 0)
+			(at 66.04 95.8346 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -604,8 +650,8 @@
 		)
 	)
 	(sheet
-		(at 20.32 227.33)
-		(size 35.56 17.78)
+		(at 67.31 109.22)
+		(size 35.56 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -620,7 +666,7 @@
 		)
 		(uuid "b8fa3439-dc0c-4d9c-8ad6-69d5aa1ba2e8")
 		(property "Sheetname" "SG3525 PWM"
-			(at 20.32 226.6184 0)
+			(at 67.31 108.5084 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -631,7 +677,7 @@
 			)
 		)
 		(property "Sheetfile" "sg3525 pwm.kicad_sch"
-			(at 20.32 245.6946 0)
+			(at 67.31 125.0446 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -650,7 +696,7 @@
 		)
 	)
 	(sheet
-		(at 66.04 199.39)
+		(at 113.03 77.47)
 		(size 38.1 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -666,7 +712,7 @@
 		)
 		(uuid "bca35039-ced8-4cb5-af63-12befec669f7")
 		(property "Sheetname" "TL494 PMW"
-			(at 66.04 198.6784 0)
+			(at 113.03 76.7584 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -677,7 +723,7 @@
 			)
 		)
 		(property "Sheetfile" "tl494 pwm.kicad_sch"
-			(at 66.04 217.7546 0)
+			(at 113.03 95.8346 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
