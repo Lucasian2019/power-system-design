@@ -752,13 +752,17 @@
         "uuid": "40e0f264-5d7d-4080-96f9-03b6d8dad596"
       }
     ],
-    "used_designators": "R1-42,J1-12,#PWR1-49,D1-16,U1-5,C1-13,RV1-6,Q1-7,H1-4,HS1",
+    "used_designators": "R1-47,J1-14,#PWR1-63,D1-17,U1-7,C1-18,RV1-8,Q1-7,H1-4,HS1",
     "variants": []
   },
   "sheets": [
     [
       "40e0f264-5d7d-4080-96f9-03b6d8dad596",
       "Root"
+    ],
+    [
+      "b8fa3439-dc0c-4d9c-8ad6-69d5aa1ba2e8",
+      "SG3525 PWM"
     ],
     [
       "ac80bf55-4f42-4bdf-90c2-c9c33972a25f",
@@ -771,6 +775,14 @@
     [
       "4756e164-17bf-48a3-8421-fd4758a9d481",
       "isolated feedback"
+    ],
+    [
+      "b508f4f1-0e9f-4e2a-9203-9b97e2436cd2",
+      "Full Bridge Bootstrap"
+    ],
+    [
+      "bca35039-ced8-4cb5-af63-12befec669f7",
+      "TL494 PMW"
     ]
   ],
   "text_variables": {},
